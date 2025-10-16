@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Trains</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="page-header">
+            <h1>Trains</h1>
+            <a href="/trains/new">Add New Train</a>
+        </div>
+
+        <table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Source</th>
+        <th>Destination</th>
+        <th>Base Price</th>
+        <th>Discount %</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="train : ${trains}">
+        <td th:text="${train.id}"></td>
+        <td th:text="${train.name}"></td>
+        <td th:text="${train.source}"></td>
+        <td th:text="${train.destination}"></td>
+        <td th:text="${train.basePrice}"></td>
+        <td th:text="${train.discountPercentage}"></td>
+        <td>
+            <span class="list-actions">
+                <a th:href="@{/trains/edit/{id}(id=${train.id})}">Edit</a>
+                <a th:href="@{/trains/delete/{id}(id=${train.id})}">Delete</a>
+            </span>
+        </td>
+    </tr>
+</table>
+</div>
+</div>
+</body>
+</html>

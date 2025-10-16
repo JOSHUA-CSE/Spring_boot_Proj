@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ticket Form</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h1 th:if="${ticket.id == null}">Book New Ticket</h1>
+        <h1 th:if="${ticket.id != null}">Edit Ticket</h1>
+
+        <form th:action="${ticket.id} == null ? @{/tickets} : @{/tickets/update/{id}(id=${ticket.id})}" method="post">
+            <div class="form-row">
+                <label for="user">User:
+                    <select name="userId" id="user" required>
+                        <option value="" th:if="${ticket.user == null}">-- Select User --</option>
+                        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"
+                                th:selected="${ticket.user != null and ticket.user.id == user.id}"></option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="form-row">
+                <label for="train">Train:
+                    <select name="trainId" id="train" required>
+                        <option value="" th:if="${ticket.train == null}">-- Select Train --</option>
+                        <option th:each="train : ${trains}" th:value="${train.id}" th:text="${train.name}"
+                                th:selected="${ticket.train != null and ticket.train.id == train.id}"></option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="actions">
+                <button type="submit" th:text="${ticket.id == null} ? 'Book' : 'Save'"></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
